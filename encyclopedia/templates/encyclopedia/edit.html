@@ -5,22 +5,16 @@
 {% endblock %}
 
 {% block body %}
-
+    <h2>Title: {{ title_content }}</h2>
     <form action="{% url 'edit' title_content %}" method="post">
         {% csrf_token %}
-        <label for="title">
-            <h1>Title:</h1>
-        </label>
-        <br>
-        <input type="text" name="title" id="title" value={{ title_content }}>
-        <br>
         <label for="entry_content">
-            <h1>Content:</h1>
+            <h2>Edit Content:</h2>
         </label>
         <br>
         <textarea name="content" id="entry_content" >{{ textarea_content }}</textarea>
         <br>
-        <input type="submit" value="Save">
+        <input type="submit" value="Save changes">
     </form>
 
 {% endblock %}

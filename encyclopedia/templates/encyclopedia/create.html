@@ -9,13 +9,13 @@
     <form action="{% url 'pg_create' %}" method="post">
         {% csrf_token %}
         <label for="title">
-            <h1>Title:</h1>
+            <h2>Title:</h2>
         </label>
         <br>
         <input type="text" name="title" id="title">
         <br>
         <label for="entry_content">
-            <h1>Content:</h1>
+            <h2>Content:</h2>
         </label>
         <br>
         <textarea name="content" id="entry_content" rows="5">
