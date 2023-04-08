@@ -16,5 +16,8 @@
         </ul>
     {% else %}
         {{ contents|safe }}
+        <a href="{% url 'edit' name %}">
+            <button>Edit</button>
+        </a>
     {% endif %}
 {% endblock %}

@@ -1,25 +1,24 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Create
+    Edit
 {% endblock %}
 
 {% block body %}
 
-    <form action="{% url 'pg_create' %}" method="post">
+    <form action="{% url 'edit' title_content %}" method="post">
         {% csrf_token %}
         <label for="title">
             <h1>Title:</h1>
         </label>
         <br>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" value={{ title_content }}>
         <br>
         <label for="entry_content">
             <h1>Content:</h1>
         </label>
         <br>
-        <textarea name="content" id="entry_content" rows="5">
-        </textarea>
+        <textarea name="content" id="entry_content" >{{ textarea_content }}</textarea>
         <br>
         <input type="submit" value="Save">
     </form>

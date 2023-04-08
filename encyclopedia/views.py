@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
+import random
 
 from . import util
 
@@ -11,7 +12,6 @@ def index(request):
     })
 
 def default_route(request, name):
-    print(name)
     html_content = util.md_to_html(name)
     return render(request, "encyclopedia/content.html", {
         "name": name,
@@ -25,7 +25,7 @@ def srch(request):
         content = form_content['q']
         for item in util.list_entries():
             if content.lower() == item.lower():
-                return redirect(f"wiki/{item}")
+                return redirect('entry_route', item)
         else:
             possible_items = list()
             for item in util.list_entries():
@@ -46,7 +46,7 @@ def srch(request):
             
 def create_pg(request):
     if request.method == "POST":
-        form_content =  request.POST
+        form_content = request.POST
         title = form_content['title']
         for item in util.list_entries():
             if title.lower() == item.lower():
@@ -58,8 +58,25 @@ def create_pg(request):
         else:
             pg_content = form_content['content']
             util.save_entry(title, pg_content)
-            return redirect(f"wiki/{title}")
+            return redirect('entry_route', title)
     else:
-        return render(request, "encyclopedia/create.html", {
-            "textarea_content": ""
+        return render(request, "encyclopedia/create.html")
+    
+def edit_pg(request, name):
+    if request.method == "POST":
+        form_content = request.POST
+        edited_content = form_content['content']
+        util.save_entry(name, edited_content)
+        return redirect('entry_route', name)
+    
+    else:
+        md_content = util.get_entry(name)
+        return render(request, "encyclopedia/edit.html", {
+            "title_content": name,
+            "textarea_content": md_content
         })
+    
+def random_pg(request):
+    content_list = util.list_entries()
+    selected_entry = random.choice(content_list)
+    return redirect('entry_route', selected_entry)
