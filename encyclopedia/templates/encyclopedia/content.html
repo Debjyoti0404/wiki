@@ -5,5 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    {{ contents|safe }}
+    {% if type == "list" %}
+        <h1>{{name}}</h1>
+         <ul>
+            {% for item in contents %}
+                    <li>
+                        <a href="wiki/{{ item }}">{{ item }}</a>
+                    </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        {{ contents|safe }}
+    {% endif %}
 {% endblock %}
