@@ -1,2 +1,2 @@
 # wiki
-CS50's project 1
+basic clone of wikipedia
